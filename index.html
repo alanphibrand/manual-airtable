@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- TU PALETA DE COLORES --- */
+        /* --- COLORES CORPORATIVOS --- */
         :root {
             --brand-dark:   #40010D;
             --brand-main:   #BF0436;
@@ -30,20 +30,20 @@
             height: 100vh;
             background-color: var(--bg-page);
             color: var(--brand-text);
-            overflow: hidden;
+            overflow: hidden; /* En PC no scrollea el body, solo el contenido */
         }
 
-        /* --- SIDEBAR --- */
+        /* --- SIDEBAR (Menú) --- */
         #sidebar {
             width: 280px;
-            min-width: 280px; /* Evita que se aplaste */
+            min-width: 280px;
             background-color: var(--brand-dark);
             color: white;
             display: flex;
             flex-direction: column;
             padding: 25px;
             box-shadow: 4px 0 15px rgba(0,0,0,0.15);
-            z-index: 10;
+            z-index: 100;
         }
 
         .logo {
@@ -73,6 +73,7 @@
             transition: all 0.3s ease;
             margin-bottom: 5px;
             width: 100%;
+            white-space: nowrap; /* Evita que el texto se rompa */
         }
 
         .menu-btn:hover {
@@ -92,15 +93,9 @@
         /* --- CONTENIDO PRINCIPAL --- */
         #main-content {
             flex: 1;
-            padding: 40px 80px; /* Más margen lateral */
+            padding: 40px 80px;
             overflow-y: auto;
             scroll-behavior: smooth;
-        }
-
-        .fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .header-section {
@@ -121,22 +116,20 @@
             color: var(--brand-text);
             line-height: 1.6;
             opacity: 0.8;
-            max-width: 800px;
         }
 
-        /* --- TARJETAS MODO CINE (Vertical) --- */
+        /* --- TARJETAS --- */
         .tutorial-card {
             background: var(--bg-card);
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            margin-bottom: 50px; /* Más espacio entre tarjetas */
+            margin-bottom: 50px;
             border: 1px solid #e5e5e5;
             display: flex;
-            flex-direction: column; /* SIEMPRE columna (imagen arriba, texto abajo) */
+            flex-direction: column;
         }
 
-        /* Contenedor de la imagen: Ocupa todo el ancho */
         .media-container {
             width: 100%; 
             background-color: #FAFAFA;
@@ -146,13 +139,13 @@
         }
 
         .media-container img {
-            width: 100%; /* Intenta ocupar todo el ancho */
+            width: 100%;
             max-width: 100%; 
-            height: auto; /* Altura automática (sin limites) */
+            height: auto;
             border-radius: 4px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             border: 1px solid var(--brand-gray);
-            display: block; /* Elimina espacios fantasma */
+            display: block;
         }
 
         .gif-caption {
@@ -167,9 +160,7 @@
             font-style: italic;
         }
 
-        .steps-container { 
-            padding: 40px; /* Más espacio interior */
-        }
+        .steps-container { padding: 40px; }
 
         .steps-container h3 {
             margin-top: 0;
@@ -192,7 +183,7 @@
             padding-left: 35px;
             line-height: 1.7;
             color: var(--brand-text);
-            font-size: 16px; /* Letra un poco más grande */
+            font-size: 16px;
         }
 
         li::before {
@@ -205,7 +196,6 @@
             font-size: 24px;
         }
 
-        /* --- NOTAS Y ALERTAS --- */
         .note {
             background-color: #FFF5F7;
             border-left: 4px solid var(--brand-main);
@@ -217,34 +207,79 @@
         }
         
         b { color: var(--brand-main); font-weight: 700; }
-        
-        .img-error {
-            color: var(--brand-main);
-            background: #FFF0F0;
-            padding: 20px;
-            border: 1px dashed var(--brand-main);
-            border-radius: 4px;
-            text-align: center;
+
+        .fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- MODO RESPONSIVO (MÓVIL) --- */
+        /* Esta sección se activa solo si la pantalla es menor a 768px */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column; /* Apila menú arriba y contenido abajo */
+                height: 100%;
+                overflow: auto; /* Permite scroll normal en celular */
+            }
+
+            #sidebar {
+                width: 100%;
+                min-width: 0;
+                padding: 15px;
+                flex-direction: row; /* Botones al lado */
+                overflow-x: auto; /* Scroll horizontal si no caben */
+                align-items: center;
+                gap: 10px;
+                position: sticky;
+                top: 0;
+            }
+
+            .logo {
+                display: none; /* Oculta logo en móvil para ahorrar espacio */
+            }
+
+            .menu-btn {
+                width: auto;
+                margin-bottom: 0;
+                background-color: rgba(255,255,255,0.1);
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+
+            .menu-btn.active {
+                border-left: none;
+                border-bottom: 3px solid var(--brand-main);
+            }
+
+            #main-content {
+                padding: 20px; /* Menos márgenes en móvil */
+            }
+
+            h1 { font-size: 28px; }
+            .steps-container { padding: 20px; }
+            
+            #welcome-screen div { font-size: 30px !important; transform: rotate(90deg); } /* Gira la mano apuntando arriba */
         }
     </style>
 </head>
 <body>
 
     <div id="sidebar">
-        <div class="logo"><span>❖</span> Manual AirTable</div>
-        <button class="menu-btn" onclick="cargarCaso(0)">Importar Datos</button>
-        <button class="menu-btn" onclick="cargarCaso(1)">Segmentar y Agrupar</button>
-        <button class="menu-btn" onclick="cargarCaso(2)">Buscar Contactos</button>
-        <button class="menu-btn" onclick="cargarCaso(3)">Exportar Segmentos</button>
-        <button class="menu-btn" onclick="cargarCaso(4)">Agregar Contactos</button>
-        <button class="menu-btn" onclick="cargarCaso(5)">Actualizar (Formularios)</button>
+        <div class="logo"><span>❖</span> Manual</div>
+        <button class="menu-btn" onclick="cargarCaso(0)">Importar</button>
+        <button class="menu-btn" onclick="cargarCaso(1)">Segmentar</button>
+        <button class="menu-btn" onclick="cargarCaso(2)">Buscar</button>
+        <button class="menu-btn" onclick="cargarCaso(3)">Exportar</button>
+        <button class="menu-btn" onclick="cargarCaso(4)">Agregar</button>
+        <button class="menu-btn" onclick="cargarCaso(5)">Formularios</button>
     </div>
 
     <div id="main-content">
         <div id="dynamic-area">
-            <div style="text-align: center; margin-top: 100px;" class="fade-in">
-                <h1 style="font-size: 40px; color: var(--brand-main);">Bienvenido</h1>
-                <p style="font-size: 20px; color: var(--brand-text);">Selecciona una guía operativa del menú.</p>
+            <div id="welcome-screen" style="text-align: center; margin-top: 50px;" class="fade-in">
+                <h1 style="color: var(--brand-main);">Bienvenido</h1>
+                <p style="color: var(--brand-text);">Selecciona una opción del menú.</p>
                 <div style="font-size: 40px; margin-top: 20px; color: var(--brand-sub);">←</div>
             </div>
         </div>
@@ -271,7 +306,7 @@
             },
             {
                 titulo: "Segmentar y Agrupar",
-                descripcion: "Organizar según condiciones y características.",
+                descripcion: "Organizar según condiciones.",
                 contenido: [
                     {
                         gif: "imagenes/agrupar.gif",
@@ -395,6 +430,8 @@
             });
 
             document.getElementById('dynamic-area').innerHTML = html;
+            // Scroll arriba en móvil
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
