@@ -9,16 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- TU PALETA DE COLORES APLICADA --- */
+        /* --- TU PALETA DE COLORES --- */
         :root {
-            /* Tus colores exactos */
-            --brand-dark:   #40010D;  /* Secundario Oscuro (Sidebar) */
-            --brand-main:   #BF0436;  /* Principal (Botones, Títulos) */
-            --brand-sub:    #A6032F;  /* Subprincipal (Hover, Detalles) */
-            --brand-gray:   #BFBFBF;  /* Secundario (Bordes, texto inactivo) */
-            --brand-text:   #404040;  /* Secundario (Texto lectura) */
-            
-            /* Fondos neutros para limpieza visual */
+            --brand-dark:   #40010D;
+            --brand-main:   #BF0436;
+            --brand-sub:    #A6032F;
+            --brand-gray:   #BFBFBF;
+            --brand-text:   #404040;
             --bg-page:      #F9FAFB;  
             --bg-card:      #FFFFFF;
         }
@@ -36,10 +33,11 @@
             overflow: hidden;
         }
 
-        /* --- SIDEBAR (Vino Tinto Oscuro) --- */
+        /* --- SIDEBAR --- */
         #sidebar {
             width: 280px;
-            background-color: var(--brand-dark); /* Tu color #40010D */
+            min-width: 280px; /* Evita que se aplaste */
+            background-color: var(--brand-dark);
             color: white;
             display: flex;
             flex-direction: column;
@@ -56,8 +54,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid rgba(191, 191, 191, 0.2); /* Tu gris #BFBFBF muy sutil */
+            border-bottom: 1px solid rgba(191, 191, 191, 0.2);
             padding-bottom: 20px;
         }
         
@@ -66,7 +63,7 @@
         .menu-btn {
             background: transparent;
             border: none;
-            color: var(--brand-gray); /* Tu gris #BFBFBF */
+            color: var(--brand-gray);
             padding: 14px 16px;
             text-align: left;
             font-size: 14px;
@@ -85,151 +82,148 @@
         }
 
         .menu-btn.active {
-            background: var(--brand-sub); /* Tu color #A6032F */
+            background: var(--brand-sub);
             color: white;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             font-weight: 600;
-            border-left: 4px solid var(--brand-main); /* Acento con #BF0436 */
+            border-left: 4px solid var(--brand-main);
         }
 
         /* --- CONTENIDO PRINCIPAL --- */
         #main-content {
             flex: 1;
-            padding: 40px 60px;
+            padding: 40px 80px; /* Más margen lateral */
             overflow-y: auto;
             scroll-behavior: smooth;
         }
 
         .fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .header-section {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             padding-bottom: 20px;
             border-bottom: 1px solid var(--brand-gray);
         }
 
         h1 {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 800;
             margin: 0 0 10px 0;
-            color: var(--brand-dark); /* Títulos oscuros */
+            color: var(--brand-dark);
         }
 
         .description {
-            font-size: 16px;
+            font-size: 18px;
             color: var(--brand-text);
             line-height: 1.6;
             opacity: 0.8;
+            max-width: 800px;
         }
 
-        /* --- TARJETAS --- */
+        /* --- TARJETAS MODO CINE (Vertical) --- */
         .tutorial-card {
             background: var(--bg-card);
-            border-radius: 8px; /* Bordes menos redondeados, más serio */
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 50px; /* Más espacio entre tarjetas */
             border: 1px solid #e5e5e5;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* SIEMPRE columna (imagen arriba, texto abajo) */
         }
 
-        @media (min-width: 1000px) {
-            .tutorial-card { flex-direction: row; }
-            .media-container { width: 55%; border-right: 1px solid #f0f0f0; }
-            .steps-container { width: 45%; }
-        }
-
+        /* Contenedor de la imagen: Ocupa todo el ancho */
         .media-container {
+            width: 100%; 
             background-color: #FAFAFA;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
-            min-height: 300px;
+            border-bottom: 1px solid #f0f0f0;
+            text-align: center;
         }
 
         .media-container img {
-            max-width: 100%;
-            max-height: 400px;
+            width: 100%; /* Intenta ocupar todo el ancho */
+            max-width: 100%; 
+            height: auto; /* Altura automática (sin limites) */
             border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             border: 1px solid var(--brand-gray);
+            display: block; /* Elimina espacios fantasma */
         }
 
         .gif-caption {
             margin-top: 15px;
-            font-size: 12px;
+            display: inline-block;
+            font-size: 13px;
             color: var(--brand-text);
             background: #fff;
-            padding: 4px 12px;
+            padding: 6px 16px;
             border-radius: 20px;
             border: 1px solid var(--brand-gray);
             font-style: italic;
         }
 
-        .steps-container { padding: 30px; }
+        .steps-container { 
+            padding: 40px; /* Más espacio interior */
+        }
 
         .steps-container h3 {
             margin-top: 0;
-            font-size: 12px;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: var(--brand-sub); /* Color #A6032F */
+            color: var(--brand-sub);
             font-weight: 800;
             border-bottom: 2px solid var(--brand-gray);
-            padding-bottom: 10px;
-            display: inline-block;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: block;
         }
 
         ul { padding-left: 0; list-style: none; }
 
         li {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             position: relative;
-            padding-left: 25px;
-            line-height: 1.6;
-            color: var(--brand-text); /* Tu gris #404040 */
-            font-size: 15px;
+            padding-left: 35px;
+            line-height: 1.7;
+            color: var(--brand-text);
+            font-size: 16px; /* Letra un poco más grande */
         }
 
         li::before {
             content: "•";
             position: absolute;
-            left: 0;
+            left: 5px;
             top: 0px;
-            color: var(--brand-main); /* Bullet points rojos */
+            color: var(--brand-main);
             font-weight: bold;
-            font-size: 20px;
+            font-size: 24px;
         }
 
-        /* --- NOTAS Y ALERTAS (Rediseñadas) --- */
+        /* --- NOTAS Y ALERTAS --- */
         .note {
-            background-color: #FFF5F7; /* Fondo rosado muy suave */
-            border-left: 3px solid var(--brand-main); /* Borde rojo */
-            padding: 15px;
+            background-color: #FFF5F7;
+            border-left: 4px solid var(--brand-main);
+            padding: 20px;
             border-radius: 4px;
-            margin-top: 20px;
-            font-size: 0.9em;
+            margin-top: 25px;
+            font-size: 1em;
             color: var(--brand-dark);
         }
         
         b { color: var(--brand-main); font-weight: 700; }
-
-        /* Mensaje error imagen */
+        
         .img-error {
             color: var(--brand-main);
             background: #FFF0F0;
-            padding: 15px;
+            padding: 20px;
             border: 1px dashed var(--brand-main);
             border-radius: 4px;
-            font-size: 12px;
             text-align: center;
         }
     </style>
@@ -257,7 +251,6 @@
     </div>
 
     <script>
-        // --- DATA DE LOS CASOS ---
         const casos = [
             {
                 titulo: "Importar Datos",
@@ -370,11 +363,9 @@
             }
         ];
 
-        // --- LÓGICA DE CARGA ---
         function cargarCaso(index) {
             const data = casos[index];
             
-            // Botones activos
             document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.menu-btn')[index].classList.add('active');
 
